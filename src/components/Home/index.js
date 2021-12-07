@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Modal from "../Modal/index";
 import "./index.css";
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -10,19 +11,22 @@ import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
+import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
 
 function Home() {
   const [number, setNumber] = useState("");
   const [btnConfirm, setBtnConfirm] = useState(false);
   const [quiz, setQuiz] = useState([]);
-  const [counterRight, setCounterRight] = useState(0);
-  const [counterWrong, setCounterWrong] = useState(0);
+  const [counterRight, setCounterRight] = useState("");
+  const [counterWrong, setCounterWrong] = useState("");
   const [showQuiz, setShowQuiz] = useState(false);
   const [report, setReport] = useState([]);
   const [checked, setChecked] = useState(false);
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("");
   const [error, setError] = useState(false);
+  let allResults = [];
+
   const arrayNumber = [];
 
   useEffect(() => {
@@ -99,10 +103,21 @@ function Home() {
     }
   }
 
+  function addResults(question) {
+    const result = {
+      question: question.question,
+      your_answer: question.answer_selected,
+      correct_answer: question.correct_answer,
+    };
+
+    
+  }
+
   function handleChange(question, answer) {
     question.selected = true;
     question.answer_selected = answer;
     counterRightOrWrong(question, answer);
+    addResults(question);
     setChecked(true);
     checkTheCheckbox(question, answer);
   }
@@ -159,8 +174,16 @@ function Home() {
     setError(false);
   }
 
+  function closeResults() {
+    setShowQuiz(false);
+    setBtnConfirm(false);
+    setCounterRight("");
+    setCounterWrong("");
+    cancelBtn();
+  }
+
   return (
-    <div>
+    <>
       {btnConfirm === false && (
         <div className="initial-container">
           <div className="title-container">
@@ -301,7 +324,10 @@ function Home() {
             </div>
             <div className="right-wrong-counter-container">
               <div className="right-wrong-container">
-                {`Correct: ${counterRight} | Wrong: ${counterWrong} `}
+                <AiFillCheckCircle className="correct-counter" />{" "}
+                <label className="counter">{counterRight}</label>
+                <AiFillCloseCircle className="wrong-counter" />{" "}
+                <label className="counter">{counterWrong}</label>
               </div>
               <div>{`${counterRight + counterWrong}/${quiz.length}`}</div>
             </div>
@@ -332,7 +358,9 @@ function Home() {
                   .replace(/&ocirc;/g, "õ")
                   .replace(/&lrm;/g, "")
                   .replace(/&Uuml;/g, "Ü")
-                  .replace(/&Uuml;/g, "ü")}
+                  .replace(/&uuml;/g, "ü")
+                  .replace(/&auml;/g, "ä")
+                  .replace(/&uacute;/g, "ú")}
 
                 <div className="answers-container">
                   <ul>
@@ -381,7 +409,9 @@ function Home() {
                                   .replace(/&ocirc;/g, "õ")
                                   .replace(/&lrm;/g, "")
                                   .replace(/&Uuml;/g, "Ü")
-                                  .replace(/&Uuml;/g, "ü")}
+                                  .replace(/&uuml;/g, "ü")
+                                  .replace(/&auml;/g, "ä")
+                                  .replace(/&uacute;/g, "ú")}
                               </div>
                             }
                           />
@@ -392,12 +422,25 @@ function Home() {
                 </div>
               </li>
             ))}
-            {counterRight + counterWrong === quiz.length &&
-              console.log("quiz terminado")}
           </form>
         </div>
       )}
-    </div>
+
+      {quiz.length === counterWrong + counterRight ? (
+        <Modal
+          btnName="Close"
+          numberQuestion={`
+      Questions: ${quiz.length}`}
+          right={`Correct: ${counterRight}`}
+          wrong={`Wrong: ${counterWrong}`}
+          body={console.log(allResults)}
+          handleClick={() => closeResults()}
+          title="Final results"
+        />
+      ) : (
+        ""
+      )}
+    </>
   );
 }
 
