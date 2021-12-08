@@ -25,9 +25,7 @@ function Home() {
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("");
   const [error, setError] = useState(false);
-  let allResults = [];
-
-  const arrayNumber = [];
+  const [allResults, setAllResults] = useState([]);
 
   useEffect(() => {
     const tempLocal = JSON.stringify(quiz);
@@ -109,8 +107,8 @@ function Home() {
       your_answer: question.answer_selected,
       correct_answer: question.correct_answer,
     };
-
-    
+    setAllResults([...allResults, result]);
+    return allResults;
   }
 
   function handleChange(question, answer) {
@@ -147,6 +145,7 @@ function Home() {
   }
 
   function menuItem() {
+    const arrayNumber = [];
     for (let i = 1; i <= 50; i++) {
       arrayNumber.push(
         <MenuItem key={i} value={i}>
@@ -179,7 +178,12 @@ function Home() {
     setBtnConfirm(false);
     setCounterRight("");
     setCounterWrong("");
+    setAllResults([]);
     cancelBtn();
+  }
+
+  function showResults() {
+    allResults.map((question) => question.question);
   }
 
   return (
@@ -324,9 +328,9 @@ function Home() {
             </div>
             <div className="right-wrong-counter-container">
               <div className="right-wrong-container">
-                <AiFillCheckCircle className="correct-counter" />{" "}
+                <AiFillCheckCircle className="correct-counter-icon" />{" "}
                 <label className="counter">{counterRight}</label>
-                <AiFillCloseCircle className="wrong-counter" />{" "}
+                <AiFillCloseCircle className="wrong-counter-icon" />{" "}
                 <label className="counter">{counterWrong}</label>
               </div>
               <div>{`${counterRight + counterWrong}/${quiz.length}`}</div>
@@ -360,7 +364,8 @@ function Home() {
                   .replace(/&Uuml;/g, "Ü")
                   .replace(/&uuml;/g, "ü")
                   .replace(/&auml;/g, "ä")
-                  .replace(/&uacute;/g, "ú")}
+                  .replace(/&uacute;/g, "ú")
+                  .replace(/&Aacute;/g, "Á")}
 
                 <div className="answers-container">
                   <ul>
@@ -411,7 +416,8 @@ function Home() {
                                   .replace(/&Uuml;/g, "Ü")
                                   .replace(/&uuml;/g, "ü")
                                   .replace(/&auml;/g, "ä")
-                                  .replace(/&uacute;/g, "ú")}
+                                  .replace(/&uacute;/g, "ú")
+                                  .replace(/&Aacute;/g, "Á")}
                               </div>
                             }
                           />
@@ -428,14 +434,118 @@ function Home() {
 
       {quiz.length === counterWrong + counterRight ? (
         <Modal
-          btnName="Close"
-          numberQuestion={`
-      Questions: ${quiz.length}`}
-          right={`Correct: ${counterRight}`}
-          wrong={`Wrong: ${counterWrong}`}
-          body={console.log(allResults)}
-          handleClick={() => closeResults()}
           title="Final results"
+          btnName="Close"
+          subTitle={
+            <div className="sub-title-container">
+              {counterRight > 0
+                ? `You got ${counterRight} of ${quiz.length} questions right!`
+                : `You didn't get any questions right! :(`}
+            </div>
+          }
+          handleClick={() => closeResults()}
+          body={allResults.map((question) => (
+            <li
+              key={question.question}
+              className="unique-result-answer-container"
+              type="1"
+            >
+              {question.question
+                .replace(/&quot;/g, '"')
+                .replace(/&#039;/g, "'")
+                .replace(/&shy;/g, "<wbr>")
+                .replace(/&eacute;/g, "é")
+                .replace(/&rsquo;/g, "’")
+                .replace(/&amp;/g, "&")
+                .replace(/&rdquo;/g, '"')
+                .replace(/&ldquo;/g, '"')
+                .replace(/&prime;/g, "'")
+                .replace(/&Prime;/g, '"')
+                .replace(/&ntilde;/g, "ñ")
+                .replace(/&aacute;/g, "á")
+                .replace(/&atilde;/g, "ã")
+                .replace(/&lt;/g, "<")
+                .replace(/&gt;/g, ">")
+                .replace(/&ouml;/g, "ò")
+                .replace(/&uuml;/g, "ù")
+                .replace(/&iacute;/g, "í")
+                .replace(/&oacute;/g, "ó")
+                .replace(/&ocirc;/g, "õ")
+                .replace(/&lrm;/g, "")
+                .replace(/&Uuml;/g, "Ü")
+                .replace(/&uuml;/g, "ü")
+                .replace(/&auml;/g, "ä")
+                .replace(/&uacute;/g, "ú")
+                .replace(/&Aacute;/g, "Á")}
+              <label className="results-answer-container">
+                {question.your_answer === question.correct_answer ? (
+                  ""
+                ) : (
+                  <span className="wrong-answer-modal">
+                    {question.your_answer
+                      .replace(/&quot;/g, '"')
+                      .replace(/&#039;/g, "'")
+                      .replace(/&shy;/g, "<wbr>")
+                      .replace(/&eacute;/g, "é")
+                      .replace(/&rsquo;/g, "’")
+                      .replace(/&amp;/g, "&")
+                      .replace(/&rdquo;/g, '"')
+                      .replace(/&ldquo;/g, '"')
+                      .replace(/&prime;/g, "'")
+                      .replace(/&Prime;/g, '"')
+                      .replace(/&ntilde;/g, "ñ")
+                      .replace(/&aacute;/g, "á")
+                      .replace(/&atilde;/g, "ã")
+                      .replace(/&lt;/g, "<")
+                      .replace(/&gt;/g, ">")
+                      .replace(/&ouml;/g, "ò")
+                      .replace(/&uuml;/g, "ù")
+                      .replace(/&iacute;/g, "í")
+                      .replace(/&oacute;/g, "ó")
+                      .replace(/&ocirc;/g, "õ")
+                      .replace(/&lrm;/g, "")
+                      .replace(/&Uuml;/g, "Ü")
+                      .replace(/&uuml;/g, "ü")
+                      .replace(/&auml;/g, "ä")
+                      .replace(/&uacute;/g, "ú")
+                      .replace(/&Aacute;/g, "Á")}
+                    <AiFillCloseCircle className="icon-close" />
+                  </span>
+                )}
+
+                <span className="correct-answer-modal">
+                  {question.correct_answer
+                    .replace(/&quot;/g, '"')
+                    .replace(/&#039;/g, "'")
+                    .replace(/&shy;/g, "<wbr>")
+                    .replace(/&eacute;/g, "é")
+                    .replace(/&rsquo;/g, "’")
+                    .replace(/&amp;/g, "&")
+                    .replace(/&rdquo;/g, '"')
+                    .replace(/&ldquo;/g, '"')
+                    .replace(/&prime;/g, "'")
+                    .replace(/&Prime;/g, '"')
+                    .replace(/&ntilde;/g, "ñ")
+                    .replace(/&aacute;/g, "á")
+                    .replace(/&atilde;/g, "ã")
+                    .replace(/&lt;/g, "<")
+                    .replace(/&gt;/g, ">")
+                    .replace(/&ouml;/g, "ò")
+                    .replace(/&uuml;/g, "ù")
+                    .replace(/&iacute;/g, "í")
+                    .replace(/&oacute;/g, "ó")
+                    .replace(/&ocirc;/g, "õ")
+                    .replace(/&lrm;/g, "")
+                    .replace(/&Uuml;/g, "Ü")
+                    .replace(/&uuml;/g, "ü")
+                    .replace(/&auml;/g, "ä")
+                    .replace(/&uacute;/g, "ú")
+                    .replace(/&Aacute;/g, "Á")}
+                  <AiFillCheckCircle className="icon-check" />
+                </span>
+              </label>
+            </li>
+          ))}
         />
       ) : (
         ""

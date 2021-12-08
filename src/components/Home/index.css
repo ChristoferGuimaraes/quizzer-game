@@ -147,13 +147,15 @@ h1 {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.541);
 }
 
-.correct-counter {
-  font-size: 24px;
+.correct-counter-icon {
+  font-size: 22px;
+  
 }
 
-.wrong-counter {
-  font-size: 24px;
+.wrong-counter-icon {
+  font-size: 22px;
   margin-left: 15px;
+  
 }
 
 .back-button-quiz {
@@ -241,6 +243,52 @@ h1 {
 
 .aswer-container:hover {
   background-color: #3a8ee2;
+}
+
+.correct-answer-modal {
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  display: flex;
+  background-color: green;
+  padding: 2px 6px;
+  border-radius: 4px;
+  width: 93%;
+  margin: 5px 0px;
+  justify-content: space-between;
+}
+
+.wrong-answer-modal {
+  color: white;
+  font-weight: bold;
+  background-color: rgb(241, 56, 56);
+  padding: 2px 6px;
+  display: block;
+  margin: 5px 0px;
+  border-radius: 4px;
+  width: 93%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.icon-close, .icon-check {
+  margin-top: 3px;
+}
+
+.sub-title-container {
+  font-size: 21px;
+  color:#3687d8;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: 15px;
+}
+
+.unique-result-answer-container {
+  margin: 9px;
+  color: #145faa;
+  font-weight: bold;
+  margin-bottom: 30px;
+  font-size: 18px;
 }
 
 @media (max-width: 565px) {

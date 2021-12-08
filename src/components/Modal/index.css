@@ -1,130 +1,137 @@
 .modal-background {
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(56, 56, 56, 0.486);
-    position: fixed;
-    z-index: 4;
-  }
-  
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(56, 56, 56, 0.486);
+  position: fixed;
+  z-index: 4;
+}
+
+.modal-container {
+  background-color: rgb(255, 255, 255);
+  border-radius: 6px;
+  padding: 17px;
+  padding-top: 2px;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.212);
+  flex-direction: column;
+  position: relative;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 450px;
+  z-index: 3;
+}
+
+.body-modal {
+  position: relative;
+  overflow: scroll;
+  overflow-x: hidden;
+  max-height: 490px;
+}
+
+.body-modal::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+  margin-top: 23px;
+}
+
+.title-modal {
+  margin-bottom: 20px;
+  font-size: 30px;
+}
+
+.title-modal::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.footer {
+  display: flex;
+  justify-content: right;
+  margin-top: 16px;
+}
+
+.all-container {
+  margin-left: 6px;
+}
+
+.cancel-container {
+  margin-left: 6px;
+}
+
+.all-button,
+.cancel-button,
+.selected-button {
+  padding: 8px 18px;
+  border: none;
+  background-color: blueviolet;
+  color: #fff;
+  border-radius: 3px;
+  transition: 0.3s;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.selected-button {
+  background-color: #1976d2;
+}
+
+.selected-button:hover {
+  background-color: #3a8ee2;
+}
+
+.all-button:hover {
+  background-color: rgb(108, 28, 184);
+}
+
+.cancel-button {
+  background-color: rgb(241, 56, 56);
+}
+
+.cancel-button:hover {
+  background-color: rgb(204, 48, 48);
+}
+
+@media (max-width: 800px) {
   .modal-container {
-    background-color: rgb(255, 255, 255);
-    border-radius: 6px;
-    padding: 17px;
-    padding-top: 2px;
-    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.212);
-    flex-direction: column;
-    position: relative;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 450px;
-    z-index: 3;
+    width: 380px;
   }
-  
-  .body-modal::after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 1px;
-    background-color: #ccc;
-    margin-top: 23px;
-  }
-  
-  .title-modal {
-    margin-bottom: 20px;
-    font-size: 26px;
-  }
-  
-  .title-modal::after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 1px;
-    background-color: #ccc;
-    margin-top: 10px;
-    text-align: center;
-  }
-  
   .footer {
-    display: flex;
-    justify-content: right;
-    margin-top: 16px;
+    justify-content: center;
   }
-  
-  .all-container {
-    margin-left: 6px;
-  }
-  
-  .cancel-container {
-    margin-left: 6px;
-  }
-  
+
   .all-button,
   .cancel-button,
   .selected-button {
     padding: 8px 18px;
-    border: none;
-    background-color: blueviolet;
-    color: #fff;
-    border-radius: 3px;
-    transition: 0.3s;
-    cursor: pointer;
-    font-weight: bold;
+    font-size: 17px;
+    font-weight: normal;
   }
-  
+}
+
+@media (max-width: 500px) {
+  .modal-container {
+    width: 333px;
+  }
+}
+
+@media (max-width: 390px) {
+  .modal-container {
+    width: 325px;
+  }
+
+  .all-button,
+  .cancel-button,
   .selected-button {
-    background-color: #1976d2;
+    padding: 6px 12px;
+    font-size: 17px;
+    font-weight: normal;
   }
-  
-  .selected-button:hover {
-    background-color: #3a8ee2;
-  }
-  
-  .all-button:hover {
-    background-color: rgb(108, 28, 184);
-  }
-  
-  .cancel-button {
-    background-color: rgb(241, 56, 56);
-  }
-  
-  .cancel-button:hover {
-    background-color: rgb(204, 48, 48);
-  }
-  
-  @media (max-width: 800px) {
-    .modal-container {
-      width: 380px;
-    }
-    .footer {
-      justify-content: center;
-    }
-  
-    .all-button,
-    .cancel-button,
-    .selected-button {
-      padding: 8px 18px;
-      font-size: 17px;
-      font-weight: normal;
-    }
-  }
-  
-  @media (max-width: 500px) {
-    .modal-container {
-      width: 333px;
-    }
-  }
-  
-  @media (max-width: 390px) {
-    .modal-container {
-      width: 280px;
-    }
-  
-    .all-button,
-    .cancel-button,
-    .selected-button {
-      padding: 6px 12px;
-      font-size: 17px;
-      font-weight: normal;
-    }
-  }
+}
