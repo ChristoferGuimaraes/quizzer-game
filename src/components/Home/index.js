@@ -182,10 +182,6 @@ function Home() {
     cancelBtn();
   }
 
-  function showResults() {
-    allResults.map((question) => question.question);
-  }
-
   return (
     <>
       {btnConfirm === false && (

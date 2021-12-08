@@ -14,10 +14,10 @@
   box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.212);
   flex-direction: column;
   position: relative;
-  top: 45%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 450px;
+  width: 500px;
   z-index: 3;
 }
 
@@ -26,15 +26,6 @@
   overflow: scroll;
   overflow-x: hidden;
   max-height: 490px;
-}
-
-.body-modal::after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 1px;
-  background-color: #ccc;
-  margin-top: 23px;
 }
 
 .title-modal {
@@ -53,65 +44,51 @@
 }
 
 .footer {
-  display: flex;
-  justify-content: right;
+  display: block;
+  text-align: right;
   margin-top: 16px;
 }
 
-.all-container {
-  margin-left: 6px;
+.footer::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+  margin: 23px 0px;
 }
 
-.cancel-container {
-  margin-left: 6px;
-}
 
-.all-button,
-.cancel-button,
 .selected-button {
   padding: 8px 18px;
   border: none;
-  background-color: blueviolet;
+  background-color: #1976d2;
   color: #fff;
   border-radius: 3px;
   transition: 0.3s;
   cursor: pointer;
   font-weight: bold;
-}
-
-.selected-button {
-  background-color: #1976d2;
+  font-size: 16px;
+  margin-bottom: 5px;
 }
 
 .selected-button:hover {
   background-color: #3a8ee2;
 }
 
-.all-button:hover {
-  background-color: rgb(108, 28, 184);
-}
-
-.cancel-button {
-  background-color: rgb(241, 56, 56);
-}
-
-.cancel-button:hover {
-  background-color: rgb(204, 48, 48);
-}
-
 @media (max-width: 800px) {
   .modal-container {
-    width: 380px;
+    width: 450px;
   }
+  
   .footer {
-    justify-content: center;
+    margin-right: 0px;
+    text-align: center;
   }
 
-  .all-button,
-  .cancel-button,
   .selected-button {
     padding: 8px 18px;
-    font-size: 17px;
+    font-size: 18px;
     font-weight: normal;
   }
 }
