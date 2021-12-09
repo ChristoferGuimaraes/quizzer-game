@@ -16,11 +16,19 @@ body {
   background-color: rgb(243, 243, 243);
 }
 
+.background-initial-container {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+}
+
 .initial-container {
   max-width: 500px;
-  margin: 0px auto;
-  margin-top: 220px;
   border-radius: 10px;
+  position: relative;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 h1 {
@@ -148,14 +156,27 @@ h1 {
 }
 
 .correct-counter-icon {
-  font-size: 22px;
-  
+  font-size: 24px;
 }
 
 .wrong-counter-icon {
+  font-size: 24px;
+  margin-left: 11px;
+}
+
+.counter {
+  margin-left: 5px;
+  margin-top: -2px;
+}
+
+.right-container,
+.wrong-container {
+  display: flex;
+}
+
+.counter-answers-and-questions {
+  margin-left: 30px;
   font-size: 22px;
-  margin-left: 15px;
-  
 }
 
 .back-button-quiz {
@@ -252,7 +273,7 @@ h1 {
   background-color: green;
   padding: 2px 6px;
   border-radius: 4px;
-  width: 93%;
+  width: 100%;
   margin: 5px 0px;
   justify-content: space-between;
 }
@@ -265,18 +286,19 @@ h1 {
   display: block;
   margin: 5px 0px;
   border-radius: 4px;
-  width: 93%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
 }
 
-.icon-close, .icon-check {
+.icon-close,
+.icon-check {
   margin-top: 3px;
 }
 
 .sub-title-container {
-  font-size: 21px;
-  color:#3687d8;
+  font-size: 24px;
+  color: #3687d8;
   font-weight: bold;
   text-align: center;
   margin-bottom: 30px;

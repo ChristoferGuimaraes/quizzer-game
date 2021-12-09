@@ -182,108 +182,144 @@ function Home() {
     cancelBtn();
   }
 
+  function replaceCharacters(element) {
+    return element
+      .replace(/&quot;/g, '"')
+      .replace(/&#039;/g, "'")
+      .replace(/&shy;/g, "<wbr>")
+      .replace(/&eacute;/g, "é")
+      .replace(/&rsquo;/g, "’")
+      .replace(/&amp;/g, "&")
+      .replace(/&rdquo;/g, '"')
+      .replace(/&ldquo;/g, '"')
+      .replace(/&prime;/g, "'")
+      .replace(/&Prime;/g, '"')
+      .replace(/&ntilde;/g, "ñ")
+      .replace(/&aacute;/g, "á")
+      .replace(/&atilde;/g, "ã")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&ouml;/g, "ò")
+      .replace(/&uuml;/g, "ù")
+      .replace(/&iacute;/g, "í")
+      .replace(/&oacute;/g, "ó")
+      .replace(/&ocirc;/g, "õ")
+      .replace(/&lrm;/g, "")
+      .replace(/&Uuml;/g, "Ü")
+      .replace(/&uuml;/g, "ü")
+      .replace(/&auml;/g, "ä")
+      .replace(/&uacute;/g, "ú")
+      .replace(/&Aacute;/g, "Á");
+  }
+
   return (
     <>
       {btnConfirm === false && (
-        <div className="initial-container">
-          <div className="title-container">
-            <h1>QUIZZER</h1>
-          </div>
-          <div className="inputs-container">
-            <div className="number-difficulty-container">
-              <div className="number-container">
-                <FormControl sx={{ m: 1, minWidth: 120 }} error={error}>
-                  <InputLabel>Questions</InputLabel>
-                  <Select
-                    value={number}
-                    label="Questions *"
-                    onChange={selectNumber}
-                    inputProps={{ "aria-label": "Without label" }}
-                  >
-                    {menuItem()}
-                  </Select>
-                  {error === true && <FormHelperText>Required</FormHelperText>}
-                </FormControl>
+        <div className="background-initial-container">
+          <div className="initial-container">
+            <div className="title-container">
+              <h1>QUIZZER</h1>
+            </div>
+            <div className="inputs-container">
+              <div className="number-difficulty-container">
+                <div className="number-container">
+                  <FormControl sx={{ m: 1, minWidth: 120 }} error={error}>
+                    <InputLabel>Questions</InputLabel>
+                    <Select
+                      value={number}
+                      label="Questions *"
+                      onChange={selectNumber}
+                      inputProps={{ "aria-label": "Without label" }}
+                    >
+                      {menuItem()}
+                    </Select>
+                    {error === true && (
+                      <FormHelperText>Required</FormHelperText>
+                    )}
+                  </FormControl>
+                </div>
+                <div>
+                  <FormControl sx={{ m: 1, minWidth: 120 }}>
+                    <Select
+                      value={difficulty}
+                      onChange={selectDifficulty}
+                      inputProps={{ "aria-label": "Without label" }}
+                      displayEmpty
+                    >
+                      <MenuItem value="">
+                        <em>Any Difficulty</em>
+                      </MenuItem>
+                      <MenuItem value={"&difficulty=easy"}>Easy</MenuItem>
+                      <MenuItem value={"&difficulty=medium"}>Medium</MenuItem>
+                      <MenuItem value={"&difficulty=hard"}>Hard</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
               </div>
-              <div>
+              <div className="category-container">
                 <FormControl sx={{ m: 1, minWidth: 120 }}>
                   <Select
-                    value={difficulty}
-                    onChange={selectDifficulty}
+                    value={category}
+                    onChange={selectCategory}
                     inputProps={{ "aria-label": "Without label" }}
                     displayEmpty
                   >
                     <MenuItem value="">
-                      <em>Any Difficulty</em>
+                      <em>Any Category</em>
                     </MenuItem>
-                    <MenuItem value={"&difficulty=easy"}>Easy</MenuItem>
-                    <MenuItem value={"&difficulty=medium"}>Medium</MenuItem>
-                    <MenuItem value={"&difficulty=hard"}>Hard</MenuItem>
+                    <MenuItem value={"&category=9"}>General Knowledge</MenuItem>
+                    <MenuItem value={"&category=10"}>Books</MenuItem>
+                    <MenuItem value={"&category=11"}>Film</MenuItem>
+                    <MenuItem value={"&category=12"}>Music</MenuItem>
+                    <MenuItem value={"&category=13"}>
+                      Musicals and Theatres
+                    </MenuItem>
+                    <MenuItem value={"&category=14"}>Television</MenuItem>
+                    <MenuItem value={"&category=15"}>Video Games</MenuItem>
+                    <MenuItem value={"&category=16"}>Board Games</MenuItem>
+                    <MenuItem value={"&category=17"}>
+                      Science and Nature
+                    </MenuItem>
+                    <MenuItem value={"&category=18"}>Computers</MenuItem>
+                    <MenuItem value={"&category=19"}>Mathematics</MenuItem>
+                    <MenuItem value={"&category=20"}>Mythology</MenuItem>
+                    <MenuItem value={"&category=21"}>Sports</MenuItem>
+                    <MenuItem value={"&category=22"}>Geography</MenuItem>
+                    <MenuItem value={"&category=23"}>History</MenuItem>
+                    <MenuItem value={"&category=24"}>Politics</MenuItem>
+                    <MenuItem value={"&category=25"}>Art</MenuItem>
+                    <MenuItem value={"&category=26"}>Celebrities</MenuItem>
+                    <MenuItem value={"&category=27"}>Animals</MenuItem>
+                    <MenuItem value={"&category=28"}>Vehicles</MenuItem>
+                    <MenuItem value={"&category=29"}>Comics</MenuItem>
+                    <MenuItem value={"&category=30"}>Gadgets</MenuItem>
+                    <MenuItem value={"&category=31"}>Anime and Manga</MenuItem>
+                    <MenuItem value={"&category=32"}>
+                      Cartoon and Animations
+                    </MenuItem>
                   </Select>
                 </FormControl>
               </div>
             </div>
-            <div className="category-container">
-              <FormControl sx={{ m: 1, minWidth: 120 }}>
-                <Select
-                  value={category}
-                  onChange={selectCategory}
-                  inputProps={{ "aria-label": "Without label" }}
-                  displayEmpty
+            <div className="btns-container">
+              <div className="btn-confirm-container">
+                <Button
+                  className="btn-confirm"
+                  variant="contained"
+                  onClick={() => confirmBtn()}
                 >
-                  <MenuItem value="">
-                    <em>Any Category</em>
-                  </MenuItem>
-                  <MenuItem value={"&category=9"}>General Knowledge</MenuItem>
-                  <MenuItem value={"&category=10"}>Books</MenuItem>
-                  <MenuItem value={"&category=11"}>Film</MenuItem>
-                  <MenuItem value={"&category=12"}>Music</MenuItem>
-                  <MenuItem value={"&category=13"}>
-                    Musicals and Theatres
-                  </MenuItem>
-                  <MenuItem value={"&category=14"}>Television</MenuItem>
-                  <MenuItem value={"&category=15"}>Video Games</MenuItem>
-                  <MenuItem value={"&category=16"}>Board Games</MenuItem>
-                  <MenuItem value={"&category=17"}>Science and Nature</MenuItem>
-                  <MenuItem value={"&category=18"}>Computers</MenuItem>
-                  <MenuItem value={"&category=19"}>Mathematics</MenuItem>
-                  <MenuItem value={"&category=20"}>Mythology</MenuItem>
-                  <MenuItem value={"&category=21"}>Sports</MenuItem>
-                  <MenuItem value={"&category=22"}>Geography</MenuItem>
-                  <MenuItem value={"&category=23"}>History</MenuItem>
-                  <MenuItem value={"&category=24"}>Politics</MenuItem>
-                  <MenuItem value={"&category=25"}>Art</MenuItem>
-                  <MenuItem value={"&category=26"}>Celebrities</MenuItem>
-                  <MenuItem value={"&category=27"}>Animals</MenuItem>
-                  <MenuItem value={"&category=28"}>Vehicles</MenuItem>
-                  <MenuItem value={"&category=29"}>Comics</MenuItem>
-                  <MenuItem value={"&category=30"}>Gadgets</MenuItem>
-                  <MenuItem value={"&category=31"}>Anime and Manga</MenuItem>
-                  <MenuItem value={"&category=32"}>
-                    Cartoon and Animations
-                  </MenuItem>
-                </Select>
-              </FormControl>
-            </div>
-          </div>
-          <div className="btns-container">
-            <div className="btn-confirm-container">
-              <Button
-                className="btn-confirm"
-                variant="contained"
-                onClick={() => confirmBtn()}
-              >
-                Confirm
-              </Button>
-            </div>
-            <div className="btc-cancel-container">
-              <Button
-                className="btn-cancel"
-                variant="contained"
-                onClick={() => cancelBtn()}
-              >
-                Cancel
-              </Button>
+                  Confirm
+                </Button>
+              </div>
+              <div className="btc-cancel-container">
+                <Button
+                  className="btn-cancel"
+                  variant="contained"
+                  onClick={() => cancelBtn()}
+                >
+                  Cancel
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -323,45 +359,21 @@ function Home() {
               <h1 onClick={() => cancelQuiz()}>QUIZZER</h1>
             </div>
             <div className="right-wrong-counter-container">
-              <div className="right-wrong-container">
+              <div className="right-container">
                 <AiFillCheckCircle className="correct-counter-icon" />{" "}
-                <label className="counter">{counterRight}</label>
-                <AiFillCloseCircle className="wrong-counter-icon" />{" "}
-                <label className="counter">{counterWrong}</label>
+                <div className="counter">{counterRight}</div>
               </div>
-              <div>{`${counterRight + counterWrong}/${quiz.length}`}</div>
+              <div className="wrong-container">
+                <AiFillCloseCircle className="wrong-counter-icon" />{" "}
+                <div className="counter">{counterWrong}</div>
+              </div>
+              <div className="counter-answers-and-questions">{`${counterRight + counterWrong}/${quiz.length}`}</div>
             </div>
           </div>
           <form>
             {quiz.map((question) => (
               <li key={question.id} type="1" className="questions-container">
-                {question.question
-                  .replace(/&quot;/g, '"')
-                  .replace(/&#039;/g, "'")
-                  .replace(/&shy;/g, "<wbr>")
-                  .replace(/&eacute;/g, "é")
-                  .replace(/&rsquo;/g, "’")
-                  .replace(/&amp;/g, "&")
-                  .replace(/&rdquo;/g, '"')
-                  .replace(/&ldquo;/g, '"')
-                  .replace(/&prime;/g, "'")
-                  .replace(/&Prime;/g, '"')
-                  .replace(/&ntilde;/g, "ñ")
-                  .replace(/&aacute;/g, "á")
-                  .replace(/&atilde;/g, "ã")
-                  .replace(/&lt;/g, "<")
-                  .replace(/&gt;/g, ">")
-                  .replace(/&ouml;/g, "ò")
-                  .replace(/&uuml;/g, "ù")
-                  .replace(/&iacute;/g, "í")
-                  .replace(/&oacute;/g, "ó")
-                  .replace(/&ocirc;/g, "õ")
-                  .replace(/&lrm;/g, "")
-                  .replace(/&Uuml;/g, "Ü")
-                  .replace(/&uuml;/g, "ü")
-                  .replace(/&auml;/g, "ä")
-                  .replace(/&uacute;/g, "ú")
-                  .replace(/&Aacute;/g, "Á")}
+                {replaceCharacters(question.question)}
 
                 <div className="answers-container">
                   <ul>
@@ -387,33 +399,7 @@ function Home() {
                                 className="only-answer"
                                 style={colorSelected(question, answer)}
                               >
-                                {answer
-                                  .replace(/&quot;/g, '"')
-                                  .replace(/&#039;/g, "'")
-                                  .replace(/&shy;/g, "<wbr>")
-                                  .replace(/&eacute;/g, "é")
-                                  .replace(/&rsquo;/g, "’")
-                                  .replace(/&amp;/g, "&")
-                                  .replace(/&rdquo;/g, '"')
-                                  .replace(/&ldquo;/g, '"')
-                                  .replace(/&prime;/g, "'")
-                                  .replace(/&Prime;/g, '"')
-                                  .replace(/&ntilde;/g, "ñ")
-                                  .replace(/&aacute;/g, "á")
-                                  .replace(/&atilde;/g, "ã")
-                                  .replace(/&lt;/g, "<")
-                                  .replace(/&gt;/g, ">")
-                                  .replace(/&ouml;/g, "ò")
-                                  .replace(/&uuml;/g, "ù")
-                                  .replace(/&iacute;/g, "í")
-                                  .replace(/&oacute;/g, "ó")
-                                  .replace(/&ocirc;/g, "õ")
-                                  .replace(/&lrm;/g, "")
-                                  .replace(/&Uuml;/g, "Ü")
-                                  .replace(/&uuml;/g, "ü")
-                                  .replace(/&auml;/g, "ä")
-                                  .replace(/&uacute;/g, "ú")
-                                  .replace(/&Aacute;/g, "Á")}
+                                {replaceCharacters(answer)}
                               </div>
                             }
                           />
@@ -446,97 +432,19 @@ function Home() {
               className="unique-result-answer-container"
               type="1"
             >
-              {question.question
-                .replace(/&quot;/g, '"')
-                .replace(/&#039;/g, "'")
-                .replace(/&shy;/g, "<wbr>")
-                .replace(/&eacute;/g, "é")
-                .replace(/&rsquo;/g, "’")
-                .replace(/&amp;/g, "&")
-                .replace(/&rdquo;/g, '"')
-                .replace(/&ldquo;/g, '"')
-                .replace(/&prime;/g, "'")
-                .replace(/&Prime;/g, '"')
-                .replace(/&ntilde;/g, "ñ")
-                .replace(/&aacute;/g, "á")
-                .replace(/&atilde;/g, "ã")
-                .replace(/&lt;/g, "<")
-                .replace(/&gt;/g, ">")
-                .replace(/&ouml;/g, "ò")
-                .replace(/&uuml;/g, "ù")
-                .replace(/&iacute;/g, "í")
-                .replace(/&oacute;/g, "ó")
-                .replace(/&ocirc;/g, "õ")
-                .replace(/&lrm;/g, "")
-                .replace(/&Uuml;/g, "Ü")
-                .replace(/&uuml;/g, "ü")
-                .replace(/&auml;/g, "ä")
-                .replace(/&uacute;/g, "ú")
-                .replace(/&Aacute;/g, "Á")}
+              {replaceCharacters(question.question)}
               <label className="results-answer-container">
                 {question.your_answer === question.correct_answer ? (
                   ""
                 ) : (
                   <span className="wrong-answer-modal">
-                    {question.your_answer
-                      .replace(/&quot;/g, '"')
-                      .replace(/&#039;/g, "'")
-                      .replace(/&shy;/g, "<wbr>")
-                      .replace(/&eacute;/g, "é")
-                      .replace(/&rsquo;/g, "’")
-                      .replace(/&amp;/g, "&")
-                      .replace(/&rdquo;/g, '"')
-                      .replace(/&ldquo;/g, '"')
-                      .replace(/&prime;/g, "'")
-                      .replace(/&Prime;/g, '"')
-                      .replace(/&ntilde;/g, "ñ")
-                      .replace(/&aacute;/g, "á")
-                      .replace(/&atilde;/g, "ã")
-                      .replace(/&lt;/g, "<")
-                      .replace(/&gt;/g, ">")
-                      .replace(/&ouml;/g, "ò")
-                      .replace(/&uuml;/g, "ù")
-                      .replace(/&iacute;/g, "í")
-                      .replace(/&oacute;/g, "ó")
-                      .replace(/&ocirc;/g, "õ")
-                      .replace(/&lrm;/g, "")
-                      .replace(/&Uuml;/g, "Ü")
-                      .replace(/&uuml;/g, "ü")
-                      .replace(/&auml;/g, "ä")
-                      .replace(/&uacute;/g, "ú")
-                      .replace(/&Aacute;/g, "Á")}
+                    {replaceCharacters(question.your_answer)}
                     <AiFillCloseCircle className="icon-close" />
                   </span>
                 )}
 
                 <span className="correct-answer-modal">
-                  {question.correct_answer
-                    .replace(/&quot;/g, '"')
-                    .replace(/&#039;/g, "'")
-                    .replace(/&shy;/g, "<wbr>")
-                    .replace(/&eacute;/g, "é")
-                    .replace(/&rsquo;/g, "’")
-                    .replace(/&amp;/g, "&")
-                    .replace(/&rdquo;/g, '"')
-                    .replace(/&ldquo;/g, '"')
-                    .replace(/&prime;/g, "'")
-                    .replace(/&Prime;/g, '"')
-                    .replace(/&ntilde;/g, "ñ")
-                    .replace(/&aacute;/g, "á")
-                    .replace(/&atilde;/g, "ã")
-                    .replace(/&lt;/g, "<")
-                    .replace(/&gt;/g, ">")
-                    .replace(/&ouml;/g, "ò")
-                    .replace(/&uuml;/g, "ù")
-                    .replace(/&iacute;/g, "í")
-                    .replace(/&oacute;/g, "ó")
-                    .replace(/&ocirc;/g, "õ")
-                    .replace(/&lrm;/g, "")
-                    .replace(/&Uuml;/g, "Ü")
-                    .replace(/&uuml;/g, "ü")
-                    .replace(/&auml;/g, "ä")
-                    .replace(/&uacute;/g, "ú")
-                    .replace(/&Aacute;/g, "Á")}
+                  {replaceCharacters(question.correct_answer)}
                   <AiFillCheckCircle className="icon-check" />
                 </span>
               </label>
