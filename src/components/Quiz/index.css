@@ -33,7 +33,7 @@ body {
 
 h1 {
   text-align: center;
-  font-size: 55px;
+  font-size: 65px;
   color: var(--blue);
   margin-top: 10px;
 }
@@ -88,6 +88,49 @@ h1 {
   font-size: 19px;
 }
 
+.report-icon-container {
+  display: block;
+  text-align: center;
+}
+
+.report-icon-container::before {
+  content: " ";
+  display: block;
+  width: 50%;
+  transform: translate(50%);
+  height: 2px;
+  margin-top: 15px;
+  margin-bottom: 25px;
+  background: -webkit-linear-gradient(
+    to right,
+    rgba(189, 185, 147, 0) 0%,
+    #3687d8 20%,
+    var(--blue) 53%,
+    #3687d8 79%,
+    rgba(182, 141, 28, 0) 100%
+  );
+  background: linear-gradient(
+    to right,
+    rgba(189, 185, 147, 0) 0%,
+    #3687d8 20%,
+    var(--blue) 53%,
+    #3687d8 79%,
+    rgba(182, 141, 28, 0) 100%
+  );
+}
+
+.report-icon {
+  color: var(--blue);
+  font-size: 38px;
+}
+
+.report-icon:hover {
+  cursor: pointer;
+  color: #2b6aaa;
+  font-size: 39px;
+  margin-top: -1px;
+}
+
 /*start quiz container */
 
 .start-quiz-container {
@@ -119,7 +162,7 @@ h1 {
 .phrase-number-questions-container {
   text-align: center;
   color: var(--blue);
-  font-size: 20px;
+  font-size: 24px;
   font-weight: bold;
   margin-bottom: 18px;
 }
@@ -266,6 +309,8 @@ h1 {
   background-color: #3a8ee2;
 }
 
+/*modal*/
+
 .correct-answer-modal {
   color: rgb(255, 255, 255);
   font-weight: bold;
@@ -291,8 +336,7 @@ h1 {
   justify-content: space-between;
 }
 
-.icon-close,
-.icon-check {
+.icon-check, .icon-close{
   margin-top: 3px;
 }
 
@@ -302,15 +346,16 @@ h1 {
   font-weight: bold;
   text-align: center;
   margin-bottom: 30px;
-  margin-top: 15px;
+  margin-top: 28px;
 }
 
 .unique-result-answer-container {
   margin: 9px;
   color: #145faa;
   font-weight: bold;
-  margin-bottom: 30px;
+  margin-bottom: 35px;
   font-size: 18px;
+  margin-top: 38px;
 }
 
 @media (max-width: 565px) {

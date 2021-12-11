@@ -12,28 +12,53 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
+import { TiDocumentText } from "react-icons/ti";
 
-function Home() {
+function Quiz() {
   const [number, setNumber] = useState("");
   const [btnConfirm, setBtnConfirm] = useState(false);
   const [quiz, setQuiz] = useState([]);
   const [counterRight, setCounterRight] = useState("");
   const [counterWrong, setCounterWrong] = useState("");
   const [showQuiz, setShowQuiz] = useState(false);
-  const [report, setReport] = useState([]);
+  const [report, setReport] = useState(false);
   const [checked, setChecked] = useState(false);
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("");
   const [error, setError] = useState(false);
   const [allResults, setAllResults] = useState([]);
 
-  useEffect(() => {
-    const tempLocal = JSON.stringify(quiz);
-    localStorage.setItem("report", tempLocal);
-  }, [quiz]);
 
-  async function getAPI() {
-    await axios
+  useEffect(() => {
+    const tempLocal = localStorage.getItem("report");
+    const loadedReport = JSON.parse(tempLocal);
+
+    if (loadedReport) {
+      setAllResults(loadedReport);
+    }
+  }, []);
+
+  useEffect(() => {
+    const tempLocal = JSON.stringify(allResults);
+    localStorage.setItem("report", tempLocal);
+  }, [allResults]);
+
+  useEffect(() => {
+    const tempLocal = localStorage.getItem("report-counter");
+    const loadedReport = JSON.parse(tempLocal);
+
+    if (loadedReport) {
+      setCounterRight(loadedReport);
+    }
+  }, []);
+
+  useEffect(() => {
+    const tempLocal = JSON.stringify(counterRight);
+    localStorage.setItem("report-counter", tempLocal);
+  }, [counterRight]);
+
+  function getQuestions() {
+    axios
       .get(
         `https://opentdb.com/api.php?amount=${number}${category}${difficulty}`
       )
@@ -48,6 +73,7 @@ function Home() {
           shuffleAnswers(question.all_answers);
         });
         setQuiz(result);
+        setAllResults([]);
         setCounterRight(0);
         setCounterWrong(0);
         setShowQuiz(true);
@@ -71,18 +97,21 @@ function Home() {
     if (question.selected === true) {
       if (question.correct_answer === answer) {
         return { backgroundColor: "green" };
-      } else if (question.answer_selected === answer) {
+      }
+      if (question.answer_selected === answer) {
         if (
           question.correct_answer === answer &&
           question.answer_selected === question.correct_answer
         ) {
           return { backgroundColor: "green", fontWeight: "bold" };
-        } else if (
+        }
+        if (
           question.correct_answer !== answer &&
           question.answer_selected !== question.correct_answer
         ) {
           return { backgroundColor: "#c42a2a", fontWeight: "bold" };
-        } else if (question.correct_answer !== answer) {
+        }
+        if (question.correct_answer !== answer) {
           return { backgroundColor: "#c42a2a" };
         }
       }
@@ -101,13 +130,15 @@ function Home() {
     }
   }
 
-  function addResults(question) {
+  async function addResults(question) {
+    
     const result = {
       question: question.question,
       your_answer: question.answer_selected,
       correct_answer: question.correct_answer,
     };
     setAllResults([...allResults, result]);
+
     return allResults;
   }
 
@@ -176,17 +207,59 @@ function Home() {
   function closeResults() {
     setShowQuiz(false);
     setBtnConfirm(false);
-    setCounterRight("");
+    setReport(false);
     setCounterWrong("");
-    setAllResults([]);
     cancelBtn();
+  }
+
+  function openModal() {
+    return (
+      <Modal
+        title="Quiz Result"
+        btnName="Close"
+        subTitle={
+          <div className="sub-title-container">
+            {allResults.length < 1
+              ? "No report saved.."
+              : counterRight > 0
+              ? `You got ${counterRight} of ${allResults.length} questions right!`
+              : `You didn't get any questions right! :(`}
+          </div>
+        }
+        handleClick={() => closeResults()}
+        body={allResults.map((question) => (
+          <li
+            key={question.question}
+            className="unique-result-answer-container"
+            type="1"
+          >
+            {replaceCharacters(question.question)}
+            <label className="results-answer-container">
+              {question.your_answer === question.correct_answer ? (
+                ""
+              ) : (
+                <span className="wrong-answer-modal">
+                  {replaceCharacters(question.your_answer)}
+                  <AiFillCloseCircle className="icon-close" />
+                </span>
+              )}
+
+              <span className="correct-answer-modal">
+                {replaceCharacters(question.correct_answer)}
+                <AiFillCheckCircle className="icon-check" />
+              </span>
+            </label>
+          </li>
+        ))}
+      />
+    );
   }
 
   function replaceCharacters(element) {
     return element
       .replace(/&quot;/g, '"')
       .replace(/&#039;/g, "'")
-      .replace(/&shy;/g, "<wbr>")
+      .replace(/&shy;/g, "")
       .replace(/&eacute;/g, "é")
       .replace(/&rsquo;/g, "’")
       .replace(/&amp;/g, "&")
@@ -321,6 +394,12 @@ function Home() {
                 </Button>
               </div>
             </div>
+            <div className="report-icon-container">
+              <TiDocumentText
+                className="report-icon"
+                onClick={() => setReport(true)}
+              />
+            </div>
           </div>
         </div>
       )}
@@ -338,7 +417,7 @@ function Home() {
               <Button
                 className="btn-start"
                 variant="contained"
-                onClick={getAPI}
+                onClick={getQuestions}
               >
                 Start
               </Button>
@@ -367,7 +446,9 @@ function Home() {
                 <AiFillCloseCircle className="wrong-counter-icon" />{" "}
                 <div className="counter">{counterWrong}</div>
               </div>
-              <div className="counter-answers-and-questions">{`${counterRight + counterWrong}/${quiz.length}`}</div>
+              <div className="counter-answers-and-questions">{`${
+                counterRight + counterWrong
+              }/${quiz.length}`}</div>
             </div>
           </div>
           <form>
@@ -414,48 +495,10 @@ function Home() {
         </div>
       )}
 
-      {quiz.length === counterWrong + counterRight ? (
-        <Modal
-          title="Final results"
-          btnName="Close"
-          subTitle={
-            <div className="sub-title-container">
-              {counterRight > 0
-                ? `You got ${counterRight} of ${quiz.length} questions right!`
-                : `You didn't get any questions right! :(`}
-            </div>
-          }
-          handleClick={() => closeResults()}
-          body={allResults.map((question) => (
-            <li
-              key={question.question}
-              className="unique-result-answer-container"
-              type="1"
-            >
-              {replaceCharacters(question.question)}
-              <label className="results-answer-container">
-                {question.your_answer === question.correct_answer ? (
-                  ""
-                ) : (
-                  <span className="wrong-answer-modal">
-                    {replaceCharacters(question.your_answer)}
-                    <AiFillCloseCircle className="icon-close" />
-                  </span>
-                )}
-
-                <span className="correct-answer-modal">
-                  {replaceCharacters(question.correct_answer)}
-                  <AiFillCheckCircle className="icon-check" />
-                </span>
-              </label>
-            </li>
-          ))}
-        />
-      ) : (
-        ""
-      )}
+      {(quiz.length === counterWrong + counterRight || report === true) &&
+        openModal()}
     </>
   );
 }
 
-export default Home;
+export default Quiz;

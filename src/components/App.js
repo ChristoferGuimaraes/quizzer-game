@@ -1,12 +1,12 @@
 import React from 'react';
-import Home from './Home'
+import Quiz from './Quiz'
 
 function App() {
   
 
   return (
     <div>
-      <Home />
+      <Quiz />
     </div>
   );
 }
