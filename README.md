@@ -37,7 +37,8 @@ Libs and Frameworks that was used:
 
 ## Usage
 
-- You can select the number of `Questions`, `Difficulty` and `Category`(The number of `Questions` being the only required one) and press `Confirm`.</br>
+- You can select the number of `Questions`, `Difficulty` and `Category`.</br>
+  The number of `Questions` is the only required one</br>
   If you don't choose the difficulty and category, they will be **RANDOM**. </br>And if you press the `Reset` button, that will **RESET** all the fields.
   </br></br>
   ![quizzer-initial](https://user-images.githubusercontent.com/32392449/145736662-64035a2c-b7ad-4e37-a893-c4fce1cf469d.png)
@@ -53,7 +54,7 @@ Libs and Frameworks that was used:
   ![finalresult-quizzer](https://user-images.githubusercontent.com/32392449/145736387-7cf66cf5-c8d4-4bcc-8e7c-f1d05ae9202b.png)
 
   </br></br>
-  -The final result will be save in the `localstorage` and you will be able to see it in the **initial quiz screen**, by clicking in the bottom icon.
+- The final result will be save in the `localstorage` and you will be able to see it in the **initial quiz screen**, by clicking in the bottom icon.
   </br></br>
   ![ezgif-2-4d445327ed6b](https://user-images.githubusercontent.com/32392449/145736537-8f92f68f-b982-4274-9fb5-d44b7fc33d2a.gif)
 
