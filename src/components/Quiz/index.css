@@ -99,7 +99,7 @@ h1 {
   width: 50%;
   transform: translate(50%);
   height: 2px;
-  margin-top: 15px;
+  margin-top: 30px;
   margin-bottom: 25px;
   background: -webkit-linear-gradient(
     to right,
@@ -134,9 +134,12 @@ h1 {
 /*start quiz container */
 
 .start-quiz-container {
-  max-width: 600px;
-  margin: 0px auto;
-  margin-top: 220px;
+  max-width: 500px;
+  border-radius: 10px;
+  position: relative;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .start-quiz-btns-container {
@@ -342,11 +345,12 @@ h1 {
 
 .sub-title-container {
   font-size: 24px;
-  color: #3687d8;
+  color: var(--blue);
   font-weight: bold;
   text-align: center;
   margin-bottom: 30px;
   margin-top: 28px;
+
 }
 
 .unique-result-answer-container {
@@ -361,6 +365,10 @@ h1 {
 @media (max-width: 565px) {
   .inputs-container {
     display: block;
+  }
+
+  .sub-title-container {
+    font-size: 21px;
   }
 
   h1 {

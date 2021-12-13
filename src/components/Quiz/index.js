@@ -28,7 +28,6 @@ function Quiz() {
   const [error, setError] = useState(false);
   const [allResults, setAllResults] = useState([]);
 
-
   useEffect(() => {
     const tempLocal = localStorage.getItem("report");
     const loadedReport = JSON.parse(tempLocal);
@@ -131,7 +130,6 @@ function Quiz() {
   }
 
   async function addResults(question) {
-    
     const result = {
       question: question.question,
       your_answer: question.answer_selected,
@@ -197,7 +195,7 @@ function Quiz() {
     }
   }
 
-  function cancelBtn() {
+  function resetBtn() {
     setNumber("");
     setCategory("");
     setDifficulty("");
@@ -209,7 +207,6 @@ function Quiz() {
     setBtnConfirm(false);
     setReport(false);
     setCounterWrong("");
-    cancelBtn();
   }
 
   function openModal() {
@@ -388,9 +385,9 @@ function Quiz() {
                 <Button
                   className="btn-cancel"
                   variant="contained"
-                  onClick={() => cancelBtn()}
+                  onClick={() => resetBtn()}
                 >
-                  Cancel
+                  Reset
                 </Button>
               </div>
             </div>
@@ -405,27 +402,29 @@ function Quiz() {
       )}
 
       {btnConfirm === true && showQuiz === false && (
-        <div className="start-quiz-container">
-          <div className="title-container">
-            <h1>QUIZZER</h1>
-          </div>
-          <div className="phrase-number-questions-container">
-            <span>You've selected {number} questions.</span>
-          </div>
-          <div className="start-quiz-btns-container">
-            <div>
-              <Button
-                className="btn-start"
-                variant="contained"
-                onClick={getQuestions}
-              >
-                Start
-              </Button>
+        <div className="background-initial-container">
+          <div className="start-quiz-container">
+            <div className="title-container">
+              <h1>QUIZZER</h1>
             </div>
-            <div>
-              <Button variant="contained" onClick={() => cancelQuiz()}>
-                Cancel
-              </Button>
+            <div className="phrase-number-questions-container">
+              <span>You've selected {number} questions.</span>
+            </div>
+            <div className="start-quiz-btns-container">
+              <div>
+                <Button
+                  className="btn-start"
+                  variant="contained"
+                  onClick={getQuestions}
+                >
+                  Start
+                </Button>
+              </div>
+              <div>
+                <Button variant="contained" onClick={() => cancelQuiz()}>
+                  Cancel
+                </Button>
+              </div>
             </div>
           </div>
         </div>

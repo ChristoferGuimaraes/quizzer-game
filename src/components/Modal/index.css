@@ -97,6 +97,9 @@
   .modal-container {
     width: 333px;
   }
+  .body-modal {
+    max-height: 390px;
+  }
 }
 
 @media (max-width: 390px) {
